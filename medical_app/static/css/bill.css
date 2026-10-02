@@ -1,0 +1,626 @@
+/* =========================================
+MEDCARE - RECEIVE BILL
+========================================= */
+
+.bill-page {
+min-height: 100vh;
+padding: 50px 20px;
+background: #f4f7f9;
+}
+
+/* =========================================
+BILL CONTAINER
+========================================= */
+
+.bill-container {
+width: 100%;
+max-width: 950px;
+margin: auto;
+padding: 42px;
+background: #ffffff;
+border-radius: 20px;
+box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================================
+HEADER
+========================================= */
+
+.bill-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding-bottom: 28px;
+border-bottom: 2px solid #edf0f2;
+}
+
+.bill-brand {
+display: flex;
+align-items: center;
+gap: 15px;
+}
+
+.bill-logo {
+width: 58px;
+height: 58px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 15px;
+background: #e8f7f1;
+color: #15966d;
+font-size: 26px;
+}
+
+.bill-brand h1 {
+margin: 0;
+color: #17202b;
+font-size: 30px;
+font-weight: 800;
+}
+
+.bill-brand p {
+margin: 4px 0 0;
+color: #7a828b;
+font-size: 13px;
+}
+
+.bill-title {
+text-align: right;
+}
+
+.bill-title span {
+color: #15966d;
+font-size: 12px;
+font-weight: 800;
+letter-spacing: 1.5px;
+}
+
+.bill-title h2 {
+margin: 6px 0 0;
+color: #202832;
+font-size: 25px;
+font-weight: 700;
+}
+
+/* =========================================
+ORDER INFORMATION
+========================================= */
+
+.bill-info {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 15px;
+margin: 28px 0;
+}
+
+.info-box {
+padding: 17px;
+background: #f8fafb;
+border: 1px solid #edf0f2;
+border-radius: 12px;
+}
+
+.info-label {
+display: block;
+margin-bottom: 7px;
+color: #858c94;
+font-size: 12px;
+}
+
+.info-label i {
+margin-right: 5px;
+color: #15966d;
+}
+
+.info-box strong {
+color: #202832;
+font-size: 14px;
+}
+
+.info-box .status {
+color: #15966d;
+}
+
+/* =========================================
+SECTION HEADING
+========================================= */
+
+.customer-section,
+.products-section {
+margin-top: 30px;
+}
+
+.section-heading {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-bottom: 15px;
+
+}
+
+.section-heading i {
+color: #15966d;
+font-size: 17px;
+}
+
+.section-heading h3 {
+margin: 0;
+color: #202832;
+font-size: 18px;
+font-weight: 700;
+
+}
+
+/* =========================================
+CUSTOMER INFORMATION
+========================================= */
+
+.customer-details {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 18px;
+padding: 22px;
+background: #f8fafb;
+border: 1px solid #edf0f2;
+border-radius: 13px;
+}
+
+.customer-item span {
+display: block;
+margin-bottom: 6px;
+color: #858c94;
+font-size: 12px;
+
+}
+
+.customer-item strong {
+color: #202832;
+font-size: 14px;
+line-height: 1.6;
+
+}
+
+.address-detail {
+grid-column: 1 / -1;
+}
+
+/* =========================================
+PRODUCTS TABLE
+========================================= */
+
+.table-wrapper {
+width: 100%;
+overflow-x: auto;
+border: 1px solid #edf0f2;
+border-radius: 12px;
+}
+
+.bill-table {
+width: 100%;
+border-collapse: collapse;
+min-width: 650px;
+}
+
+.bill-table th {
+padding: 15px;
+background: #f1f5f4;
+color: #555f68;
+font-size: 12px;
+font-weight: 800;
+text-align: left;
+white-space: nowrap;
+
+}
+
+.bill-table td {
+padding: 15px;
+border-bottom: 1px solid #edf0f2;
+color: #414950;
+font-size: 14px;
+vertical-align: middle;
+}
+
+.bill-table tbody tr:last-child td {
+border-bottom: none;
+}
+
+.bill-table tbody tr:hover {
+background: #fafcfc;
+}
+
+/* =========================================
+PRODUCT
+========================================= */
+
+.bill-product {
+display: flex;
+align-items: center;
+gap: 12px;
+
+}
+
+.bill-product img,
+.bill-no-image {
+width: 48px;
+height: 48px;
+flex-shrink: 0;
+border-radius: 9px;
+object-fit: cover;
+}
+
+.bill-no-image {
+display: flex;
+align-items: center;
+justify-content: center;
+background: #edf3f1;
+color: #15966d;
+font-size: 18px;
+}
+
+.bill-product strong {
+color: #202832;
+font-size: 14px;
+font-weight: 600;
+
+}
+
+/* =========================================
+EMPTY BILL
+========================================= */
+
+.empty-bill {
+padding: 45px 20px;
+text-align: center;
+background: #f8fafb;
+border-radius: 12px;
+color: #7d858c;
+}
+
+.empty-bill i {
+margin-bottom: 12px;
+color: #15966d;
+font-size: 38px;
+}
+
+.empty-bill h3 {
+margin: 5px 0;
+color: #202832;
+}
+
+.empty-bill p {
+margin: 0;
+font-size: 13px;
+}
+
+/* =========================================
+TOTAL SECTION
+========================================= */
+
+.bill-total-section {
+width: 360px;
+max-width: 100%;
+margin: 30px 0 30px auto;
+}
+
+.total-row {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 9px 0;
+color: #6f777e;
+font-size: 14px;
+}
+.total-row strong {
+color: #202832;
+font-weight: 600;
+}
+
+.grand-total {
+margin-top: 8px;
+padding-top: 16px;
+border-top: 2px solid #202832;
+color: #15966d;
+font-size: 19px;
+font-weight: 700;
+}
+
+.grand-total strong {
+color: #15966d;
+font-size: 20px;
+font-weight: 800;
+}
+
+/* =========================================
+PAYMENT
+========================================= */
+
+.payment-section {
+display: flex;
+justify-content: space-between;
+gap: 20px;
+padding: 20px;
+background: #f8fafb;
+border: 1px solid #edf0f2;
+border-radius: 13px;
+}
+
+.payment-item {
+min-width: 180px;
+}
+
+.payment-item span {
+display: block;
+margin-bottom: 6px;
+color: #858c94;
+font-size: 12px;
+}
+
+.payment-item span i {
+margin-right: 5px;
+color: #15966d;
+}
+
+.payment-item strong {
+color: #202832;
+font-size: 14px;
+}
+
+.payment-item .paid-status {
+color: #15966d;
+}
+
+/* =========================================
+FOOTER
+========================================= */
+
+.bill-footer {
+margin-top: 35px;
+text-align: center;
+}
+
+.thank-you i {
+color: #15966d;
+font-size: 23px;
+}
+
+.thank-you h3 {
+margin: 9px 0 6px;
+color: #202832;
+font-size: 18px;
+}
+
+.thank-you p {
+margin: 0;
+color: #7d858c;
+font-size: 13px;
+
+}
+
+.footer-line {
+margin: 22px 0;
+border-top: 1px dashed #cfd4d8;
+
+}
+
+.generated-text {
+margin: 0;
+color: #a0a6ab;
+
+font-size: 11px;
+
+}
+
+/* =========================================
+ACTION BUTTONS
+========================================= */
+
+.bill-actions {
+display: flex;
+justify-content: center;
+
+gap: 15px;
+
+margin-top: 30px;
+
+}
+
+.print-btn,
+.back-btn {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+
+gap: 8px;
+
+min-width: 150px;
+
+padding: 12px 22px;
+
+border: none;
+
+border-radius: 9px;
+
+font-size: 14px;
+font-weight: 700;
+
+text-decoration: none;
+
+cursor: pointer;
+
+transition: all 0.2s ease;
+
+
+}
+
+.print-btn {
+background: #15966d;
+color: #ffffff;
+}
+
+.print-btn:hover {
+background: #117d5a;
+
+transform: translateY(-1px);
+
+}
+
+.back-btn {
+background: #edf1f3;
+color: #343b42;
+}
+
+.back-btn:hover {
+background: #dfe5e8;
+transform: translateY(-1px);
+
+}
+
+/* =========================================
+MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+.bill-page {
+    padding: 25px 12px;
+}
+
+
+.bill-container {
+    padding: 22px;
+
+    border-radius: 13px;
+}
+
+
+.bill-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 20px;
+}
+
+
+.bill-title {
+    text-align: left;
+}
+
+
+.bill-info {
+    grid-template-columns: 1fr;
+}
+
+
+.customer-details {
+    grid-template-columns: 1fr;
+
+    gap: 15px;
+}
+
+
+.address-detail {
+    grid-column: auto;
+}
+
+
+.payment-section {
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+
+.payment-item {
+    min-width: auto;
+}
+
+
+.bill-total-section {
+    width: 100%;
+}
+
+
+.bill-actions {
+    flex-direction: column;
+}
+
+
+.print-btn,
+.back-btn {
+    width: 100%;
+}
+}
+
+/* =========================================
+PRINT
+========================================= */
+
+@media print {
+@page {
+    size: A4;
+
+    margin: 12mm;
+}
+
+
+html,
+body {
+    background: #ffffff !important;
+}
+
+
+.bill-page {
+    min-height: auto;
+
+    padding: 0;
+
+    background: #ffffff;
+}
+
+
+.bill-container {
+    max-width: 100%;
+
+    padding: 0;
+
+    border-radius: 0;
+
+    box-shadow: none;
+}
+
+
+.bill-actions {
+    display: none !important;
+}
+
+
+.navbar,
+.footer,
+header,
+nav {
+    display: none !important;
+}
+
+
+.bill-table {
+    page-break-inside: auto;
+}
+
+
+.bill-table tr {
+    page-break-inside: avoid;
+}
+
+
+.customer-section,
+.products-section,
+.payment-section {
+    page-break-inside: avoid;
+}
+
+
+.bill-header {
+    border-bottom: 2px solid #222;
+}
+}

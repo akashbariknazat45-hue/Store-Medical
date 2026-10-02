@@ -1,0 +1,168 @@
+{% extends "app.html" %}
+{% block title %}
+Edit Address - MedCare
+{% endblock title %}
+
+
+{% block content %}
+<div class="address-form-page">
+<div class="form-header">
+
+    <span class="address-badge">
+        <i class="fa-solid fa-pen"></i>
+        EDIT ADDRESS
+    </span>
+
+    <h1>Edit Address</h1>
+    <p>Update your delivery information.</p>
+
+</div>
+
+
+<form method="POST" class="address-form">
+
+    {% csrf_token %}
+
+    <div class="form-section">
+
+        <h2>
+            <i class="fa-solid fa-user"></i>
+            Customer Information
+        </h2>
+
+        <div class="form-row">
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text"
+                       name="name"
+                       value="{{ address.name }}"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Mobile Number</label>
+                <input type="tel"
+                       name="mobile"
+                       value="{{ address.mobile }}"
+                       required>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email"
+                   name="email"
+                   value="{{ address.email }}"
+                   required>
+        </div>
+
+    </div>
+
+
+    <div class="form-section">
+
+        <h2>
+            <i class="fa-solid fa-location-dot"></i>
+            Delivery Address
+        </h2>
+
+        <div class="form-group">
+
+            <label>Address</label>
+
+            <textarea name="address"
+                      rows="3"
+                      required>{{ address.address }}</textarea>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+                <label>City</label>
+                <input type="text"
+                       name="city"
+                       value="{{ address.city }}"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>State</label>
+                <input type="text"
+                       name="state"
+                       value="{{ address.state }}"
+                       required>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+                <label>PIN Code</label>
+                <input type="text"
+                       name="pincode"
+                       value="{{ address.pincode }}"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Landmark</label>
+                <input type="text"
+                       name="landmark"
+                       value="{{ address.landmark }}">
+            </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Address Type</label>
+
+            <select name="address_type" required>
+
+                <option value="">Select Address Type</option>
+
+                <option value="Home"
+                    {% if address.address_type == "Home" %}selected{% endif %}>
+                    Home
+                </option>
+
+                <option value="Office"
+                    {% if address.address_type == "Office" %}selected{% endif %}>
+                    Office
+                </option>
+
+                <option value="Other"
+                    {% if address.address_type == "Other" %}selected{% endif %}>
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div class="form-actions">
+
+        <a href="{% url 'manage_address' %}"
+           class="cancel-btn">
+            Cancel
+        </a>
+
+        <button type="submit" class="save-address-btn">
+            <i class="fa-solid fa-check"></i>
+            Update Address
+        </button>
+
+    </div>
+
+</form>
+
+</div>
+
+{% endblock content %}

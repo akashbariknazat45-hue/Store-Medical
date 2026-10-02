@@ -1,0 +1,257 @@
+{% extends "app.html" %}
+{% block title %} Receive Bill - MedCare {% endblock title %}
+{% block content %}
+<section class="bill-page">
+  <div class="bill-container">
+    <!-- ================= HEADER ================= -->
+
+    <div class="bill-header">
+      <div class="bill-brand">
+        <div class="bill-logo">
+          <i class="fa-solid fa-pills"></i>
+        </div>
+
+        <div>
+          <h1>MedCare</h1>
+          <p>Your Trusted Medical Shop</p>
+        </div>
+      </div>
+
+      <div class="bill-title">
+        <span>
+          <i class="fa-solid fa-receipt"></i>
+          PAYMENT RECEIPT
+        </span>
+
+        <h2>Order Bill</h2>
+      </div>
+    </div>
+
+    <!-- ================= ORDER INFO ================= -->
+
+    <div class="bill-info">
+      <div class="info-box">
+        <span class="info-label">
+          <i class="fa-solid fa-hashtag"></i>
+          Order ID
+        </span>
+
+        <strong>#{{ order.order_id }}</strong>
+      </div>
+
+      <div class="info-box">
+        <span class="info-label">
+          <i class="fa-solid fa-calendar-days"></i>
+          Order Date
+        </span>
+
+        <strong> {{ order.created_at|date:"d M Y" }} </strong>
+      </div>
+    </div>
+
+    <!-- ================= CUSTOMER ================= -->
+
+    <div class="customer-section">
+      <div class="section-heading">
+        <i class="fa-solid fa-user"></i>
+
+        <h3>Customer Information</h3>
+      </div>
+      <div class="customer-details">
+        <div class="customer-item">
+            <span>Name</span>
+            <strong>{{ order.shipping_address.name }}</strong>
+        </div>
+
+        <div class="customer-item">
+            <span>Mobile</span>
+            <strong>{{ order.shipping_address.mobile }}</strong>
+        </div>
+
+        <div class="customer-item">
+            <span>Email</span>
+            <strong>{{ order.shipping_address.email }}</strong>
+        </div>
+
+        <div class="customer-item address-detail">
+            <span>Delivery Address</span>
+
+            <strong>
+                {{ order.shipping_address.address }}
+
+                {% if order.shipping_address.city %}
+                    , {{ order.shipping_address.city }}
+                {% endif %}
+
+                {% if order.shipping_address.state %}
+                    , {{ order.shipping_address.state }}
+                {% endif %}
+
+                {% if order.shipping_address.pincode %}
+                    - {{ order.shipping_address.pincode }}
+                {% endif %}
+            </strong>
+        </div>
+
+    </div>
+
+
+    </div>
+
+    <!-- ================= PRODUCTS ================= -->
+    {% if order_items %}
+
+    <div class="table-wrapper">
+
+        <table class="bill-table">
+
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for item in order_items %}
+
+                <tr>
+
+                    <td>
+                        {{ forloop.counter }}
+                    </td>
+
+                    <td>
+                        <div class="bill-product">
+                            <strong>
+                                {{ item.product.product_name }}
+                            </strong>
+
+                        </div>
+                    </td>
+
+                    <td>
+                        {{ item.quantity }}
+                    </td>
+
+                    <td>
+                        ₹{{ item.product.product_price }}
+                    </td>
+
+                    <td>
+                        ₹{% widthratio item.product.product_price 1 item.quantity %}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-bill">
+
+        <i class="fa-solid fa-box-open"></i>
+
+        <h3>No Products Found</h3>
+
+        <p>No products were found for this order.</p>
+
+    </div>
+
+    {% endif %}
+    <!-- ================= TOTAL ================= -->
+
+    <div class="bill-total-section">
+      <div class="total-row">
+        <span> Subtotal </span>
+
+        <strong> ₹{{ subtotal }} </strong>
+      </div>
+
+      <div class="total-row">
+        <span> Delivery Charge </span>
+
+        <strong> ₹{{ delivery_charge }} </strong>
+      </div>
+
+      <div class="total-row grand-total">
+        <span> Grand Total </span>
+
+        <strong> ₹{{ total }} </strong>
+      </div>
+    </div>
+
+    <!-- ================= PAYMENT ================= -->
+
+    <div class="payment-section">
+      <div class="payment-item">
+        <span>
+          <i class="fa-solid fa-credit-card"></i>
+          Payment Method
+        </span>
+        {% if order.payment_mode == "cod" %}
+            Cash on Delivery
+        {% elif order.payment_mode == "online" %}
+            Online Payment
+        {% else %}
+            {{ order.payment_mode }}
+        {% endif %}
+      </div>
+
+      <div class="payment-item">
+        <span>
+          <i class="fa-solid fa-shield-check"></i>
+          Payment Status
+        </span>
+
+        <strong class="paid-status">
+            {{ order.payment_status|title }}
+        </strong>
+      </div>
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+
+    <div class="bill-footer">
+      <div class="thank-you">
+        <i class="fa-solid fa-heart"></i>
+
+        <h3>Thank You for Shopping with MedCare!</h3>
+
+        <p>AI helps you find products. Follow your doctor's advice.</p>
+      </div>
+
+      <div class="footer-line"></div>
+
+      <p class="generated-text">This is a computer-generated receipt.</p>
+    </div>
+
+    <!-- ================= ACTION BUTTONS ================= -->
+
+    <div class="bill-actions">
+      <button type="button" class="print-btn" onclick="window.print()">
+        <i class="fa-solid fa-print"></i>
+
+        Print Bill
+      </button>
+
+      <a href="{% url 'orders' %}" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Back to Orders
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

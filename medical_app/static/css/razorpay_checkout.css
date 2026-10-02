@@ -1,0 +1,430 @@
+/* =========================================
+   RAZORPAY PAYMENT PAGE
+========================================= */
+
+.payment-page {
+    min-height: 85vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 50px 20px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(59, 130, 246, 0.12),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(16, 185, 129, 0.12),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #f7fbff,
+            #eef8f5
+        );
+}
+
+
+/* =========================================
+   PAYMENT CARD
+========================================= */
+
+.payment-card {
+    width: 100%;
+    max-width: 520px;
+
+    padding: 42px 40px;
+
+    background: rgba(255, 255, 255, 0.95);
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    border-radius: 28px;
+
+    text-align: center;
+
+    box-shadow:
+        0 25px 70px rgba(15, 23, 42, 0.12),
+        0 5px 20px rgba(15, 23, 42, 0.05);
+
+    backdrop-filter: blur(15px);
+}
+
+
+/* =========================================
+   PAYMENT ICON
+========================================= */
+
+.payment-icon {
+    width: 72px;
+    height: 72px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 22px;
+
+    background: linear-gradient(
+        135deg,
+        #e0f2fe,
+        #dcfce7
+    );
+
+    box-shadow:
+        0 10px 25px rgba(16, 185, 129, 0.12);
+}
+
+.payment-icon span {
+    font-size: 32px;
+}
+
+
+/* =========================================
+   SECURE BADGE
+========================================= */
+
+.secure-badge {
+    display: inline-flex;
+
+    align-items: center;
+    gap: 8px;
+
+    padding: 7px 14px;
+
+    border-radius: 50px;
+
+    background: #ecfdf5;
+
+    color: #047857;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.secure-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #10b981;
+
+    box-shadow:
+        0 0 0 4px rgba(16, 185, 129, 0.12);
+}
+
+
+/* =========================================
+   HEADING
+========================================= */
+
+.payment-card h1 {
+    margin: 18px 0 8px;
+
+    color: #0f172a;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    letter-spacing: -0.7px;
+}
+
+.payment-subtitle {
+    max-width: 380px;
+
+    margin: 0 auto 28px;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   ORDER INFORMATION
+========================================= */
+
+.order-box {
+    padding: 18px 20px;
+
+    border-radius: 18px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    text-align: left;
+}
+
+.order-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 10px 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+.order-row:not(:last-child) {
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.order-row strong {
+    color: #0f172a;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   LOADING SECTION
+========================================= */
+
+.payment-loading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 24px;
+
+    padding: 17px;
+
+    text-align: left;
+
+    border-radius: 18px;
+
+    background: linear-gradient(
+        135deg,
+        #eff6ff,
+        #f0fdf4
+    );
+
+    border: 1px solid #dbeafe;
+}
+
+.payment-loading h3 {
+    margin: 0 0 3px;
+
+    color: #1e293b;
+
+    font-size: 14px;
+}
+
+.payment-loading p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   LOADER
+========================================= */
+
+.loader {
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    border: 4px solid #dbeafe;
+
+    border-top-color: #2563eb;
+
+    border-radius: 50%;
+
+    animation: paymentSpin 0.8s linear infinite;
+}
+
+@keyframes paymentSpin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =========================================
+   SECURITY INFORMATION
+========================================= */
+
+.security-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 20px;
+
+    padding: 14px;
+
+    text-align: left;
+
+    border-radius: 15px;
+
+    background: #f8fafc;
+
+    border: 1px solid #f1f5f9;
+}
+
+.security-info > span {
+    font-size: 23px;
+}
+
+.security-info strong {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #334155;
+
+    font-size: 13px;
+}
+
+.security-info p {
+    margin: 0;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   PAY BUTTON
+========================================= */
+
+.pay-button {
+    width: 100%;
+
+    margin-top: 22px;
+
+    padding: 15px 20px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #0ea5e9
+    );
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(37, 99, 235, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.pay-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 30px rgba(37, 99, 235, 0.32);
+}
+
+.pay-button:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   FOOTER MESSAGE
+========================================= */
+
+.dont-close {
+    margin: 18px 0 0;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .payment-page {
+        min-height: 90vh;
+
+        padding: 30px 15px;
+    }
+
+    .payment-card {
+        padding: 32px 22px;
+
+        border-radius: 22px;
+    }
+
+    .payment-card h1 {
+        font-size: 25px;
+    }
+
+    .payment-subtitle {
+        font-size: 13px;
+    }
+
+    .order-box {
+        padding: 14px 16px;
+    }
+
+    .order-row {
+        font-size: 13px;
+    }
+
+    .payment-loading {
+        padding: 14px;
+    }
+
+    .security-info {
+        padding: 12px;
+    }
+
+}

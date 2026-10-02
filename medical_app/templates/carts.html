@@ -1,0 +1,316 @@
+{% extends "app.html" %}
+{% block title %}My Cart | MedCare{% endblock title %}
+
+
+{% block content %}
+
+<section class="cart-page">
+
+    <div class="container">
+
+        <!-- =========================
+             PAGE HEADER
+        ========================== -->
+
+        <div class="cart-header">
+
+            <div>
+
+                <span class="cart-small-title">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    SHOPPING CART
+                </span>
+
+                <h1>
+                    Your Cart
+                </h1>
+
+                <p>
+                    Review your selected healthcare products
+                    before checkout.
+                </p>
+
+            </div>
+
+
+            <a href="{% url 'home' %}" class="continue-shopping">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Continue Shopping
+
+            </a>
+
+        </div>
+
+
+        <!-- =========================
+             MESSAGES
+        ========================== -->
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="cart-alert {{ message.tags }}">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <strong>
+                        {{ message }}
+                    </strong>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+
+        {% if items %}
+
+
+        <!-- =========================
+             CART CONTENT
+        ========================== -->
+
+        <div class="cart-layout">
+
+
+            <!-- LEFT: CART ITEMS -->
+
+            <div class="cart-items-card">
+
+                <div class="cart-card-title">
+
+                    <div>
+
+                        <h3>
+                            Cart Items
+                        </h3>
+
+                        <span>
+                            {{ items|length }} product{{ items|length|pluralize }}
+                        </span>
+
+                    </div>
+
+                    <i class="fa-solid fa-bag-shopping"></i>
+
+                </div>
+
+
+                {% for item in items %}
+
+                <div class="cart-item">
+
+
+                    <!-- PRODUCT IMAGE -->
+
+                    <div class="cart-product-image">
+
+                        {% if item.product.product_image %}
+
+                            <img
+                                src="{{ item.product.product_image.url }}"
+                                alt="{{ item.product.product_name }}"
+                            >
+
+                        {% else %}
+
+                            <div class="no-image">
+                                <i class="fa-solid fa-pills"></i>
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+
+                    <!-- PRODUCT INFORMATION -->
+
+                    <div class="cart-product-info">
+
+                        <span class="product-category">
+
+                            <i class="fa-solid fa-shield-heart"></i>
+
+                            Healthcare Product
+
+                        </span>
+
+
+                        <h3>
+                            {{ item.product.product_name }}
+                        </h3>
+
+
+                        <p class="product-price">
+
+                            ₹{{ item.product.product_price }}
+
+                        </p>
+
+
+                        <small>
+
+                            <i class="fa-solid fa-calendar-days"></i>
+
+                            Added {{ item.created_at }}
+
+                        </small>
+
+                    </div>
+
+
+
+                    <!-- QUANTITY -->
+
+                    <div class="cart-quantity">
+
+                        <label>
+                            Quantity
+                        </label>
+
+
+                        <form
+                            action="{% url 'update_cart_item' %}"
+                            method="post"
+                            class="quantity-form"
+                        >
+
+                            {% csrf_token %}
+
+                            <input
+                                type="hidden"
+                                name="product"
+                                value="{{ item.product.id }}"
+                            >
+
+
+                            <div class="quantity-control">
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="5" aria-label="Quantity">
+                            </div>
+                            <button type="submit" class="update-btn">
+                                <i class="fa-solid fa-rotate"></i>
+                                Update
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- DELETE -->
+
+                    <div class="cart-delete">
+                        <a href="{% url 'remove_from_cart' item.product.id %}" class="delete-btn" title="Remove from cart">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- RIGHT: ORDER SUMMARY -->
+
+            <div class="order-summary">
+                <div class="summary-top">
+                    <span>
+                        <i class="fa-solid fa-receipt"></i>ORDER SUMMARY
+                    </span>
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h2>Your Order</h2>
+                <div class="summary-row">
+                    <span>Products</span>
+                    <strong>{{ items|length }}</strong>
+
+                </div>
+                <div class="summary-row">
+                    <span>Delivery</span>
+                    <strong class="free">FREE</strong>
+                </div>
+                <div class="summary-line"></div>
+                <div class="secure-payment">
+                    <div class="secure-icon">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div>
+                        <strong>
+                            Secure Checkout
+                        </strong>
+                        <small>
+                            Your information is protected
+                        </small>
+                    </div>
+                </div>
+                <a href ="{% url "checkout" %}" class="checkout-btn">
+
+                    Proceed to Checkout
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+
+                <div class="payment-info">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                    Safe & secure payment guaranteed
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- =========================
+             EMPTY CART
+        ========================== -->
+
+        <div class="empty-cart">
+
+            <div class="empty-cart-icon">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+            </div>
+
+
+            <h2>
+                Your Cart is Empty
+            </h2>
+
+
+            <p>
+                Looks like you haven't added anything
+                to your cart yet.
+            </p>
+
+
+            <a
+                href="{% url 'home' %}"
+                class="shop-now-btn"
+            >
+
+                <i class="fa-solid fa-bag-shopping"></i>
+
+                Start Shopping
+
+            </a>
+
+        </div>
+
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock content %}

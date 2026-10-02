@@ -1,0 +1,266 @@
+{% extends "app.html" %}
+{% block title %}MedCare{{ product.product_name }}{% endblock title %}
+
+{% block content %}
+<section class="product-details-page">
+    <div class="container">
+        <!-- Breadcrumb -->
+        <div class="product-breadcrumb">
+            <a href="{% url 'home' %}">
+                <i class="fa-solid fa-house"></i>Home
+            </a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span> Product Details </span>
+        </div>
+
+<!-- Product Main -->
+        <div class="product-details-card">
+            <!-- Product Image -->
+            <div class="product-details-image">
+                <div class="product-image-badge">
+                    <i class="fa-solid fa-shield-heart"></i>
+                    Genuine Product
+                </div>
+                {% if product.product_image %}
+                    <img src="{{ product.product_image.url }}" alt="{{ product.product_name }}">
+                {% else %}
+                    <div class="details-no-image">
+                        <i class="fa-solid fa-pills"></i>
+                    </div>
+                {% endif %}
+            </div>
+            <!-- Product Information -->
+            <div class="product-details-info">
+                <span class="product-details-category">
+                    <i class="fa-solid fa-capsules"></i>{{ product.product_category }}</span>
+                <h1> {{ product.product_name }} </h1>
+                <div class="product-rating">
+                    <span class="stars">
+                        ★★★★★
+                    </span>
+                    <span>
+                        Trusted Healthcare Product
+                    </span>
+                </div>
+
+                <!-- Price -->
+
+                <div class="details-price">
+                    <span class="old-price"><del>₹000.00</del></span>
+                    <span class="current-price">
+                        ₹{{ product.product_price }}
+                    </span>
+                </div>
+                <div class="price-note">
+                    <i class="fa-solid fa-tag"></i>
+                    Best price available
+                </div>
+
+                <!-- Description -->
+                <div class="product-description">
+                    <h4>Product Description</h4>
+                    <p>{{ product.product_description }}</p>
+                </div>
+
+                <!-- Stock -->
+                <div class="stock-status">
+
+                    {% if product.product_quantity_in_stock > 0 %}
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        <span>
+                            In Stock
+                        </span>
+
+                        <small>
+                            {{ product.product_quantity_in_stock }} available
+                        </small>
+
+                    {% else %}
+
+                        <i class="fa-solid fa-circle-xmark"></i>
+
+                        <span>
+                            Out of Stock
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- Quantity -->
+
+                <form
+                    action="{% url 'add_items_to_cart' %}"
+                    method="post"
+                    class="cart-form"
+                >
+
+                    {% csrf_token %}
+
+                    <input
+                        type="hidden"
+                        name="product"
+                        value="{{ product.id }}"
+                    >
+
+
+                    <div class="quantity-area">
+
+                        <label>
+                            Quantity
+                        </label>
+
+                        <div class="quantity-control">
+                            <input
+                                type="number"
+                                id="quantity"
+                                name="quantity"
+                                value="1"
+                                min="1"
+                                max="5"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+
+                    <div class="product-actions">
+
+                        {% if user.is_authenticated %}
+
+                            {% if product.id in cart_product_ids %}
+
+                                <a
+                                    href="{% url 'cart' %}"
+                                    class="add-cart-premium go-cart-btn"
+                                >
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    Go to Cart
+                                </a>
+
+                            {% else %}
+
+                                <button
+                                    type="submit"
+                                    class="add-cart-premium"
+                                >
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    Add to Cart
+                                </button>
+
+                            {% endif %}
+
+                        {% else %}
+
+                            <a
+                                href="{% url 'login' %}"
+                                class="add-cart-premium"
+                            >
+                                <i class="fa-solid fa-right-to-bracket"></i>
+                                Login to Add
+                            </a>
+
+                        {% endif %}
+                        {% if user.is_authenticated %}
+
+                            {% if product.id in favourite_product_ids %}
+                                <a
+                                    href="{% url 'favourites' %}"
+                                    class="favourite-premium go-favourite-btn"
+                                >
+                                    <i class="fa-solid fa-heart"></i>
+                                    Go to Favourite
+                                </a>
+                            {% else %}
+                                <a
+                                    href="{% url 'add_to_favourites' user.id product.id %}"
+                                    class="favourite-premium"
+                                >
+                                    <i class="fa-regular fa-heart"></i>
+                                    Add to Favourite
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            <a
+                                href="{% url 'login' %}"
+                                class="favourite-premium"
+                            >
+                                <i class="fa-solid fa-heart"></i>
+                                Add to Favourite
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+                </form>
+
+
+                <!-- Benefits -->
+
+                <div class="product-benefits">
+
+                    <div>
+
+                        <i class="fa-solid fa-truck-fast"></i>
+
+                        <span>
+                            Fast Delivery
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        <span>
+                            Genuine Product
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <span>
+                            Secure Payment
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Related Products Heading -->
+
+        <div class="related-heading">
+
+            <span>
+                YOU MAY ALSO LIKE
+            </span>
+
+            <h2>
+                Related Products
+            </h2>
+
+            <p>
+                Discover more healthcare essentials from MedCare.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock content %}

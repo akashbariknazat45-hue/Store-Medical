@@ -1,0 +1,231 @@
+{% extends "app.html" %}
+{% block title %} Favourites | MedCare {% endblock title %}
+{% block content %}
+
+<section class="favourite-page">
+
+    <div class="container">
+
+        <!-- =========================
+             HEADER
+        ========================== -->
+
+        <div class="favourite-header">
+
+            <div>
+
+                <span class="favourite-label">
+                    <i class="fa-solid fa-heart"></i>
+                    YOUR COLLECTION
+                </span>
+
+                <h1>
+                    Favourite Products
+                </h1>
+
+                <p>
+                    Your saved healthcare products, all in one place.
+                </p>
+
+            </div>
+
+
+            <a href="{% url 'home' %}" class="back-shop-btn">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Continue Shopping
+
+            </a>
+
+        </div>
+
+
+        <!-- =========================
+             MESSAGES
+        ========================== -->
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+            <div class="favourite-alert {{ message.tags }}">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <strong>
+                    {{ message }}
+                </strong>
+
+            </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        {% if items %}
+
+
+        <!-- =========================
+             FAVOURITE GRID
+        ========================== -->
+
+        <div class="favourite-grid">
+
+            {% for item in items %}
+
+            <div class="favourite-card">
+
+
+                <!-- IMAGE -->
+
+                <div class="favourite-image">
+
+                    <span class="saved-badge">
+                        <i class="fa-solid fa-heart"></i>
+                        Saved
+                    </span>
+
+
+                    {% if item.product.product_image %}
+
+                    <img
+                        src="{{ item.product.product_image.url }}"
+                        alt="{{ item.product.product_name }}"
+                    >
+
+                    {% else %}
+
+                    <div class="favourite-no-image">
+
+                        <i class="fa-solid fa-pills"></i>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- DETAILS -->
+
+                <div class="favourite-details">
+
+                    <span class="favourite-category">
+
+                        <i class="fa-solid fa-shield-heart"></i>
+
+                        Healthcare Product
+
+                    </span>
+
+
+                    <h3>
+                        {{ item.product.product_name }}
+                    </h3>
+
+
+                    <div class="favourite-price">
+
+                        ₹{{ item.product.product_price }}
+
+                    </div>
+
+
+                    <div class="saved-date">
+
+                        <i class="fa-regular fa-calendar"></i>
+
+                        Added {{ item.created_at }}
+
+                    </div>
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="favourite-actions">
+
+
+                        <a
+                            href="{% url 'get_product_detail_view' item.product.product_slug %}"
+                            class="view-product-btn"
+                        >
+
+                            <i class="fa-solid fa-eye"></i>
+
+                            View Product
+
+                        </a>
+
+
+                        <a
+                            href="{% url 'remove_from_favourites' user.id item.product.id %}"
+                            class="remove-favourite"
+                            title="Remove from favourites"
+                        >
+
+                            <i class="fa-solid fa-trash"></i>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- =========================
+             EMPTY FAVOURITES
+        ========================== -->
+
+        <div class="empty-favourites">
+
+            <div class="empty-heart">
+
+                <i class="fa-regular fa-heart"></i>
+
+            </div>
+
+
+            <h2>
+                No Favourite Products
+            </h2>
+
+
+            <p>
+                You haven't saved any healthcare products yet.
+                Start exploring and save your favourites.
+            </p>
+
+
+            <a
+                href="{% url 'home' %}"
+                class="explore-products-btn"
+            >
+
+                <i class="fa-solid fa-bag-shopping"></i>
+
+                Explore Products
+
+            </a>
+
+        </div>
+
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock content %}

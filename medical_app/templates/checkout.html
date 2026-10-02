@@ -1,0 +1,189 @@
+{% extends "app.html" %}
+{% load static %}
+{% load helper %}
+
+{% block title %}Premium Checkout - Medical Store{% endblock title %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+
+<div class="checkout-wrapper">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="cart-alert {{ message.tags }}">
+                <i class="fa-solid fa-circle-check"></i>
+                <strong>{{ message }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="checkout-header">
+        <form action="{% url "process_order" %}" method="post">
+            {% csrf_token %}
+            <span class="checkout-badge">SECURE CHECKOUT</span>
+            <h1>Complete Your Order</h1>
+            <p>Safe, secure and hassle-free shopping experience</p>
+        </div>
+
+        <div class="checkout-container">
+
+            <!-- LEFT SIDE -->
+            <div class="checkout-left">
+                <!-- Customer Information -->
+                {% if address %}
+                    <div class="checkout-address-list">
+
+                        {% for i in address %}
+                            <label class="checkout-address-item">
+
+                                <input
+                                    type="radio"
+                                    name="address"
+                                    value="{{ i.id }}"
+                                    {% if i.is_default %}checked{% endif %}
+                                    required
+                                >
+
+                                <div class="checkout-address-content">
+                                    <strong>
+                                        {{ i.address_type }}
+                                    </strong>
+
+                                    <p>
+                                        {{ i.name }}
+                                    </p>
+
+                                    <p>
+                                        {{ i.address }},
+                                        {{ i.city }},
+                                        {{ i.state }} - {{ i.pincode }}
+                                    </p>
+
+                                    <small>
+                                        📞 {{ i.mobile }}
+                                    </small>
+
+                                    {% if i.is_default %}
+                                        <span class="default-address-label">
+                                            Default Address
+                                        </span>
+                                    {% endif %}
+                                </div>
+
+                            </label>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="no-address">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <p>No Address Found!</p>
+
+                        <a href="{% url 'add_address' %}">
+                            <i class="fa-solid fa-plus"></i>
+                            Add New Address
+                        </a>
+                    </div>
+                {% endif %}
+                <!-- Payment -->
+                <div class="checkout-card">
+
+                    <div class="card-title">
+                        <span class="step-number">3</span>
+                        <div>
+                            <h2>Payment Method</h2>
+                            <p>Choose your preferred payment option</p>
+                        </div>
+                    </div>
+
+                    <div class="payment-options">
+
+                        <label class="payment-option">
+                            <input type="radio" name="payment_mode" value="cod">
+                            <span class="payment-icon">💵</span>
+                            <span>
+                                <strong>Cash on Delivery</strong>
+                                <small>Pay when your order arrives</small>
+                            </span>
+                        </label>
+
+                        <label class="payment-option">
+                            <input type="radio" name="payment_mode" value="upi">
+                            <span class="payment-icon">📱</span>
+                            <span>
+                                <strong>UPI Payment</strong>
+                                <small>Google Pay, PhonePe, Paytm</small>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- RIGHT SIDE -->
+            <div class="checkout-right">
+
+                <div class="order-summary">
+
+                    <div class="summary-header">
+                        <div>
+                            <h2>Order Summary</h2>
+                            <p>Your selected products</p>
+                        </div>
+                    </div>
+
+
+                    <!-- Product -->
+                    {% if cart_items %}
+                        {% for item in cart_items %}
+                            <div class="checkout-product">
+                                <div class="product-image">
+                                    <img src="{{ item.product.product_image.url }}" alt="{{ item.product.product_name }}">
+                                </div>
+                                <span class="cart-count">{{ item.quantity }}</span>
+                                <div class="product-info">
+                                    <h3>{{ item.product.product_name }}</h3>
+                                    <p>{{ item.quantity }}×{{ item.product.product_price }}</p>
+                                    <strong>{% multiply item.product.product_price item.quantity %}</strong>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <!-- Price -->
+                    <div class="price-details">
+
+                        <div>
+                            <span>Subtotal</span>
+                            <strong>₹{{ total_amount }}</strong>
+                        </div>
+
+                        <div>
+                            <span>Delivery Charge</span>
+                            <strong class="free">FREE</strong>
+                        </div>
+
+                        <div>
+                            <span>Discount</span>
+                            <strong class="discount">- ₹00.00</strong>
+                        </div>
+                        <hr>
+                        <div class="total">
+                            <span>Total Amount</span>
+                            <strong>₹{{ total_amount }}</strong>
+                        </div>
+                    </div>
+                    <button type="submit" class="place-order-btn">
+                        🔒 Place Order
+                    </button>
+                </form>
+                <div class="secure-message">
+                    🛡️ Your payment and personal information are protected.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,558 @@
+{% extends "app.html" %}
+{% load static %}
+{% block content %}
+
+<!-- =====================================================
+     PREMIUM HERO SECTION
+===================================================== -->
+
+<section class="medical-hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="hero-badge">
+                    <i class="fa-solid fa-shield-heart"></i>
+                    TRUSTED HEALTHCARE STORE</span>
+                <h1> Your Health, <span>Our Priority.</span></h1>
+                <p>
+                    Quality medicines, healthcare essentials and
+                    wellness products delivered safely to your doorstep.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#products" class="hero-btn">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        Shop Now
+                    </a>
+                    <a href="#about" class="hero-outline-btn">
+                        Learn More
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+
+                <div class="hero-trust">
+
+                    <div>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Genuine Products
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-truck-fast"></i>
+                        Fast Delivery
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-headset"></i>
+                        24/7 Support
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- HERO VISUAL -->
+
+            <div class="hero-visual">
+
+                <div class="hero-circle"></div>
+
+                <div class="medical-card floating-card">
+
+                    <i class="fa-solid fa-heart-pulse"></i>
+
+                    <div>
+                        <strong>
+                            Healthcare
+                        </strong>
+
+                        <small>
+                            You can trust
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="medicine-box">
+
+                    <i class="fa-solid fa-prescription-bottle-medical"></i>
+
+                    <span>
+                        MED
+                    </span>
+
+                </div>
+
+
+                <div class="hero-plus plus-one">
+                    +
+                </div>
+
+                <div class="hero-plus plus-two">
+                    +
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MESSAGE
+===================================================== -->
+
+{% if messages %}
+
+<section class="container message-section">
+
+    {% for message in messages %}
+
+    <div class="premium-alert {{ message.tags }}">
+
+        <i class="fa-solid fa-circle-check"></i>
+
+        <strong>
+            {{ message }}
+        </strong>
+
+    </div>
+
+    {% endfor %}
+
+</section>
+
+{% endif %}
+
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section class="features-section">
+
+    <div class="container">
+
+        <div class="features-grid">
+
+            <div class="feature-box">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-shield-heart"></i>
+                </div>
+
+                <div>
+                    <h4>100% Genuine</h4>
+                    <p>Authentic healthcare products</p>
+                </div>
+
+            </div>
+
+
+            <div class="feature-box">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-truck-fast"></i>
+                </div>
+
+                <div>
+                    <h4>Fast Delivery</h4>
+                    <p>Quick & safe doorstep delivery</p>
+                </div>
+
+            </div>
+
+
+            <div class="feature-box">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+
+                <div>
+                    <h4>Expert Support</h4>
+                    <p>Professional customer assistance</p>
+                </div>
+
+            </div>
+
+
+            <div class="feature-box">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <div>
+                    <h4>Secure Payment</h4>
+                    <p>Safe & protected transactions</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ==============================
+    CATEGORIES
+================================ -->
+{% if show_categories %}
+    <section class="categories-section" id="categories">
+
+        <div class="container">
+
+            <div class="categories-heading">
+
+                <span class="section-label">
+                    <i class="fa-solid fa-layer-group"></i>
+                    CATEGORIES
+                </span>
+
+                <h2>Shop By Category</h2>
+
+                <p>
+                    Explore our products by category.
+                </p>
+
+            </div>
+
+            <div class="categories-grid">
+
+                {% for category in categories %}
+
+                    <a href="?category={{ category.category_slug }}"
+                    class="category-card">
+
+                        <!-- CATEGORY IMAGE -->
+                        <div class="category-image">
+
+                            {% if category.category_image %}
+
+                                <img src="{{ category.category_image.url }}"
+                                    alt="{{ category.category_name }}">
+
+                            {% else %}
+
+                                <div class="category-no-image">
+                                    <i class="fa-solid fa-pills"></i>
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                        <!-- CATEGORY NAME -->
+                        <h3>{{ category.category_name }}</h3>
+
+                        <span>
+                            View Products
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+
+                    </a>
+
+                {% empty %}
+
+                    <p>No Categories Available</p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </section>
+{% endif %}
+
+<!-- =====================================================
+     popural and new arrival
+===================================================== -->
+
+<section class="products-section" id="products">
+
+    <div class="container">
+
+        <div class="products-heading">
+
+            <div>
+
+                {% if popular %}
+
+                    <span class="section-label">
+                        <i class="fa-solid fa-fire"></i>
+                        POPULAR ITEMS
+                    </span>
+
+                    <h2>Popular Products</h2>
+
+                    <p>
+                        Our most popular healthcare products.
+                    </p>
+
+                {% elif new %}
+
+                    <span class="section-label">
+                        <i class="fa-solid fa-star"></i>
+                        NEW ARRIVALS
+                    </span>
+
+                    <h2>New Arrivals</h2>
+
+                    <p>
+                        Discover our latest healthcare products.
+                    </p>
+
+                {% else %}
+
+                    <span class="section-label">
+                        <i class="fa-solid fa-pills"></i>
+                        OUR PRODUCTS
+                    </span>
+
+                    <h2>Medical Products</h2>
+
+                    <p>
+                        Quality healthcare products for your needs.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <div class="premium-product-grid">
+
+            {% for product in products %}
+
+                <div class="premium-product-card">
+
+                    <div class="product-image-area">
+
+                        {% if popular %}
+                            <span class="product-badge">
+                                Popular
+                            </span>
+
+                        {% elif new %}
+                            <span class="product-badge">
+                                NEW
+                            </span>
+
+                        {% else %}
+                            <span class="product-badge">
+                                Genuine
+                            </span>
+                        {% endif %}
+
+
+                        {% if product.product_image %}
+
+                            <img src="{{ product.product_image.url }}"
+                                 alt="{{ product.product_name }}">
+
+                        {% else %}
+
+                            <div class="product-no-image">
+                                <i class="fa-solid fa-pills"></i>
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- Eye Icon -->
+
+                        <a href="{% url 'get_product_detail_view' product.product_slug %}"
+                           class="quick-view"
+                           title="View Product">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="premium-product-details">
+
+                        <span class="product-type">
+                            <i class="fa-solid fa-shield-heart"></i>
+                            Healthcare
+                        </span>
+
+
+                        <h3>
+                            {{ product.product_name }}
+                        </h3>
+
+
+                        <div class="product-bottom">
+
+                            <div class="col-lg-6">
+
+                                <small>Price</small>
+
+                                <strong>
+                                    ₹{{ product.product_price }}
+                                </strong>
+
+                            </div>
+
+
+                            <a href="{% url 'get_product_detail_view' product.product_slug %}"
+                               class="product-arrow"
+                               title="View Product">
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+
+                        <a href="{% url 'get_product_detail_view' product.product_slug %}"
+                           class="details-btn">
+
+                            View Details
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <div class="no-products">
+
+                    {% if popular %}
+
+                        <h3>No Popular Products Available.</h3>
+
+                    {% elif new %}
+
+                        <h3>No New Arrivals Available.</h3>
+
+                    {% else %}
+
+                        <h3>No Products Available.</h3>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     ABOUT SECTION
+===================================================== -->
+
+<section class="home-about" id="about">
+
+    <div class="container">
+
+        <div class="about-content">
+
+            <div class="about-icon-box">
+
+                <div class="about-big-icon">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                </div>
+
+            </div>
+
+
+            <div class="about-text">
+
+                <span class="section-label">
+                    ABOUT MEDCARE
+                </span>
+
+                <h2>
+                    Healthcare You Can
+                    <span>Trust.</span>
+                </h2>
+
+                <p>
+                    MedCare is your trusted destination for medicines,
+                    healthcare products and wellness essentials.
+                    We are committed to providing quality products
+                    with a simple and secure shopping experience.
+                </p>
+
+
+                <div class="about-points">
+
+                    <div>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Quality healthcare products
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Easy online shopping
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Reliable customer service
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="medical-cta">
+    <div class="container">
+        <div class="cta-content">
+            <div>
+                <span>
+                    STAY HEALTHY • STAY SAFE
+                </span>
+                <h2>
+                    Take Care of Your Health
+                    Today.
+                </h2>
+                <p>
+                    Explore our collection of healthcare essentials.
+                </p>
+            </div>
+            <a href="#products" class="cta-btn">
+                Explore Products
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock content %}

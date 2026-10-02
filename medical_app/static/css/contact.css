@@ -1,0 +1,376 @@
+/* =========================
+   CONTACT PAGE
+========================= */
+
+.contact-page {
+    min-height: 100vh;
+    padding: 70px 20px;
+    background: linear-gradient(135deg, #eafaf8, #f7fbff);
+    font-family: Arial, sans-serif;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.contact-header h1 {
+    font-size: 45px;
+    color: #087f78;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.contact-header p {
+    color: #667085;
+    font-size: 18px;
+}
+
+/* Underline */
+
+.contact-header h1::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #13b8aa;
+    margin: 15px auto;
+    border-radius: 10px;
+}
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.contact-container {
+    max-width: 1150px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+}
+
+/* =========================
+   CONTACT CARDS
+========================= */
+
+.contact-info,
+.contact-form {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+
+    box-shadow: 0 10px 35px rgba(0, 80, 70, 0.10);
+
+    border: 1px solid #e2f2ef;
+}
+
+/* =========================
+   HEADINGS
+========================= */
+
+.contact-info h2,
+.contact-form h2 {
+    color: #087f78;
+    font-size: 27px;
+    margin-bottom: 30px;
+}
+
+/* =========================
+   INFORMATION BOX
+========================= */
+
+.info-box {
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 17px;
+
+    margin-bottom: 16px;
+
+    background: #f5fbfa;
+
+    border-radius: 14px;
+
+    border: 1px solid #e3f1ef;
+
+    transition: 0.3s;
+}
+
+.info-box:hover {
+    transform: translateX(7px);
+
+    background: #eaf9f7;
+
+    box-shadow: 0 5px 15px rgba(0, 120, 110, 0.10);
+}
+
+/* =========================
+   ICON
+========================= */
+
+.icon {
+    width: 52px;
+    height: 52px;
+
+    min-width: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #d9f5f1;
+
+    border-radius: 50%;
+
+    font-size: 24px;
+}
+
+/* =========================
+   INFORMATION TEXT
+========================= */
+
+.info-box h3 {
+    margin: 0 0 5px;
+
+    color: #263238;
+
+    font-size: 17px;
+}
+
+.info-box p {
+    margin: 0;
+
+    color: #667085;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    color: #344054;
+}
+
+/* =========================
+   INPUT
+========================= */
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 14px 16px;
+
+    border: 1px solid #d0d5dd;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    font-size: 15px;
+
+    color: #344054;
+
+    outline: none;
+
+    transition: 0.3s;
+}
+
+/* Focus */
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #0fa89d;
+
+    box-shadow:
+        0 0 0 4px rgba(15, 168, 157, 0.10);
+}
+
+/* Placeholder */
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #98a2b3;
+}
+
+/* Textarea */
+
+.form-group textarea {
+    resize: vertical;
+}
+
+/* =========================
+   SEND BUTTON
+========================= */
+
+.send-btn {
+    width: 100%;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #0bb5a8,
+        #087f78
+    );
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+/* Button Hover */
+
+.send-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(8, 127, 120, 0.30);
+}
+
+/* Button Click */
+
+.send-btn:active {
+    transform: translateY(0);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 850px) {
+
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-page {
+        padding: 50px 15px;
+    }
+
+    .contact-header h1 {
+        font-size: 36px;
+    }
+
+    .contact-info,
+    .contact-form {
+        padding: 30px;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+    .contact-header h1 {
+        font-size: 30px;
+    }
+
+    .contact-header p {
+        font-size: 15px;
+    }
+
+    .contact-info,
+    .contact-form {
+        padding: 22px;
+
+        border-radius: 15px;
+    }
+
+    .contact-info h2,
+    .contact-form h2 {
+        font-size: 23px;
+    }
+
+    .info-box {
+        padding: 13px;
+    }
+
+    .icon {
+        width: 45px;
+        height: 45px;
+
+        min-width: 45px;
+
+        font-size: 20px;
+    }
+}
+
+/* =========================================================
+   PRODUCT SEARCH
+========================================================= */
+
+.product-search {
+    width: 100%;
+    max-width: 650px;
+    margin: 25px auto 35px;
+    display: flex;
+}
+
+.product-search input {
+    flex: 1;
+    height: 50px;
+    padding: 0 18px;
+    border: 2px solid #ddd;
+    border-right: none;
+    border-radius: 10px 0 0 10px;
+    outline: none;
+    font-size: 16px;
+}
+
+.product-search input:focus {
+    border-color: #198754;
+}
+
+.product-search button {
+    height: 50px;
+    padding: 0 25px;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    background: #198754;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.product-search button:hover {
+    background: #146c43;
+}

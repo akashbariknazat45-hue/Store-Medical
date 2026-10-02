@@ -1,0 +1,197 @@
+```html
+{% extends "app.html" %}
+
+{% load static %}
+
+{% block title %}Secure Payment - Medical Store{% endblock title %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/razorpay_checkout.css' %}">
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<div class="payment-page">
+
+    <div class="payment-card">
+
+        <div class="payment-icon">
+            <span>🔐</span>
+        </div>
+
+        <div class="secure-badge">
+            <span class="secure-dot"></span>
+            SECURE PAYMENT
+        </div>
+
+        <h1>Complete Your Payment</h1>
+
+        <p class="payment-subtitle">
+            Your payment is securely processed by Razorpay.
+        </p>
+
+        <div class="order-box">
+
+            <div class="order-row">
+                <span>Order</span>
+                <strong>#{{ order.tracking_no }}</strong>
+            </div>
+
+            <div class="order-row">
+                <span>Amount</span>
+                <strong>₹{{ amount|floatformat:2 }}</strong>
+            </div>
+
+            <div class="order-row">
+                <span>Currency</span>
+                <strong>{{ currency }}</strong>
+            </div>
+
+        </div>
+
+        <div class="payment-loading">
+
+            <div class="loader"></div>
+
+            <div>
+                <h3>Opening Secure Checkout</h3>
+                <p>Please wait a moment...</p>
+            </div>
+
+        </div>
+
+        <div class="security-info">
+            <span>🛡️</span>
+
+            <div>
+                <strong>100% Secure Payment</strong>
+                <p>
+                    Your payment details are encrypted and protected.
+                </p>
+            </div>
+        </div>
+
+        <button id="rzp-button1" class="pay-button">
+            Pay Now
+        </button>
+
+        <p class="dont-close">
+            Please don't refresh or close this window while payment is processing.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- Razorpay Callback Form -->
+
+<form id="razorpay-form"
+      action="{% url 'payment_callback' %}"
+      method="POST">
+
+    {% csrf_token %}
+
+    <input type="hidden"
+           name="razorpay_payment_id"
+           id="razorpay_payment_id">
+
+    <input type="hidden"
+           name="razorpay_order_id"
+           id="razorpay_order_id">
+
+    <input type="hidden"
+           name="razorpay_signature"
+           id="razorpay_signature">
+
+</form>
+
+
+<script>
+
+var options = {
+
+    "key": "{{ razorpay_key_id }}",
+
+    "amount": "{{ amount }}",
+
+    "currency": "{{ currency }}",
+
+    "name": "Medical Store",
+
+    "description": "Order Payment #{{ order.tracking_no }}",
+
+    "order_id": "{{ razorpay_order_id }}",
+
+    "handler": function (response) {
+
+        document.getElementById(
+            'razorpay_payment_id'
+        ).value = response.razorpay_payment_id;
+
+        document.getElementById(
+            'razorpay_order_id'
+        ).value = response.razorpay_order_id;
+
+        document.getElementById(
+            'razorpay_signature'
+        ).value = response.razorpay_signature;
+
+        document.getElementById(
+            'razorpay-form'
+        ).submit();
+    },
+
+    "prefill": {
+        "name": "{{ request.user.get_full_name|default:request.user.username }}",
+        "email": "{{ request.user.email }}"
+    },
+
+    "theme": {
+        "color": "#2563eb"
+    },
+
+    "modal": {
+        "ondismiss": function () {
+            console.log("Payment popup closed");
+        }
+    }
+
+};
+
+var rzp1 = new Razorpay(options);
+
+
+/* Payment Failed */
+
+rzp1.on('payment.failed', function (response) {
+
+    alert("Payment failed. Please try again.");
+
+});
+
+
+/* Automatically Open Razorpay */
+
+window.onload = function () {
+
+    setTimeout(function () {
+        rzp1.open();
+    }, 700);
+
+};
+
+
+/* Manual Pay Button */
+
+document.getElementById("rzp-button1").addEventListener(
+    "click",
+    function () {
+        rzp1.open();
+    }
+);
+
+</script>
+
+{% endblock content %}
+```

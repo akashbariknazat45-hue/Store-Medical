@@ -1,0 +1,138 @@
+{% extends "app.html" %}
+{% load static %}
+
+{% block title %}Order Successful - Medical Store{% endblock title %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/order_success.css' %}">
+
+<div class="success-page">
+
+    <div class="success-card">
+
+        <!-- Success Icon -->
+        <div class="success-icon">
+            <i class="fa-solid fa-check"></i>
+        </div>
+
+        <h1>Order Successful!</h1>
+
+        <p class="success-message">
+            Thank you for your order. Your order has been placed successfully.
+        </p>
+
+
+        <!-- Order Information -->
+        <div class="order-info">
+
+            <div class="info-box">
+                <span>Order ID</span>
+                <strong>#{{ orderid }}</strong>
+            </div>
+
+            <div class="info-box">
+                <span>Order Date</span>
+                <strong>{{ date }}</strong>
+            </div>
+
+            <div class="info-box">
+                <span>Total Amount</span>
+                <strong>₹{{ total }}</strong>
+            </div>
+
+        </div>
+
+
+        <!-- Ordered Products -->
+        <div class="products-section">
+
+            <h2>
+                <i class="fa-solid fa-bag-shopping"></i>
+                Ordered Products
+            </h2>
+
+            {% for item in order_items %}
+
+            <div class="product-item">
+
+                <!-- Product Image -->
+                <div class="product-image">
+                    {% if item.product.product_image %}
+                        <img src="{{ item.product.product_image.url }}"
+                             alt="{{ item.product.product_name }}">
+                    {% else %}
+                        <i class="fa-solid fa-pills"></i>
+                    {% endif %}
+                </div>
+
+
+                <!-- Product Details -->
+                <div class="product-details">
+
+                    <h3>
+                        {{ item.product.product_name }}
+                    </h3>
+
+                    <p>
+                        Price:
+                        <strong>₹{{ item.product.product_price }}</strong>
+                    </p>
+
+                    <p>
+                        Quantity:
+                        <strong>{{ item.quantity }}</strong>
+                    </p>
+
+                </div>
+
+
+                <!-- Product Total -->
+                <div class="product-total">
+                    ₹{{ item.subtotal }}
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <p class="no-products">
+                No products found for this order.
+            </p>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- Delivery Status -->
+        <div class="delivery-box">
+
+            <i class="fa-solid fa-truck"></i>
+
+            <div>
+                <h3>Your order is being prepared</h3>
+
+                <p>
+                    We will notify you when your order is shipped.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Buttons -->
+        <div class="success-buttons">
+
+            <a href="{% url 'home' %}" class="btn primary-btn">
+                <i class="fa-solid fa-house"></i>
+                Continue Shopping
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock content %}

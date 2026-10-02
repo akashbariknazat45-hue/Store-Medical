@@ -1,0 +1,202 @@
+{% extends "app.html" %}
+{% load static %}
+
+{% block title %}My Orders{% endblock title %}
+
+{% block content %}
+<section class="orders-page">
+    <div class="orders-container">
+        <!-- Header -->
+        <div class="orders-header">
+            <div>
+                <span class="orders-badge">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    MY ORDERS
+                </span>
+
+                <h1>All Your Orders</h1>
+                <p>Track and manage all your medical orders in one place.</p>
+            </div>
+
+            <div class="order-icon">
+                <i class="fa-solid fa-box-open"></i>
+            </div>
+        </div>
+
+
+        <!-- Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="order-alert {{ message.tags }}">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+
+        <!-- Orders Card -->
+        <div class="orders-card">
+
+            {% if orders %}
+
+                <div class="table-wrapper">
+
+                    <table class="orders-table">
+
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Total Amount</th>
+                                <th>Payment</th>
+                                <th>Status</th>
+                                <th>Order Date</th>
+                                <th colspan="2" class="action-heading">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for order in orders %}
+
+                                <tr>
+
+                                    <!-- Order ID -->
+                                    <td>
+                                        <div class="order-id">
+                                            <span>#{{ order.order_id }}</span>
+                                        </div>
+                                    </td>
+
+
+                                    <!-- Amount -->
+                                    <td>
+                                        <strong class="order-price">
+                                            ₹{{ order.total_amount }}
+                                        </strong>
+                                    </td>
+
+
+                                    <!-- Payment -->
+                                    <td>
+                                        <span class="payment-badge">
+                                            <i class="fa-solid fa-credit-card"></i>
+                                            {{ order.payment_mode }}
+                                        </span>
+                                    </td>
+
+
+                                    <!-- Status -->
+                                    <td>
+
+                                        {% if order.payment_status == "Paid" %}
+
+                                            <span class="status-badge status-paid">
+                                                <i class="fa-solid fa-circle-check"></i>
+                                                {{ order.payment_status }}
+                                            </span>
+
+                                        {% elif order.payment_status == "Cancelled" %}
+
+                                            <span class="status-badge status-cancelled">
+                                                <i class="fa-solid fa-circle-xmark"></i>
+                                                {{ order.payment_status }}
+                                            </span>
+
+                                        {% else %}
+
+                                            <span class="status-badge status-pending">
+                                                <i class="fa-solid fa-clock"></i>
+                                                {{ order.payment_status }}
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <!-- Date -->
+                                    <td>
+                                        <div class="order-date">
+                                            <i class="fa-regular fa-calendar"></i>
+                                            {{ order.created_at|date:"d M Y" }}
+                                        </div>
+                                    </td>
+
+
+                                    <!-- View -->
+                                    {% comment %} <td>
+                                        <a href="{% url 'get_order_items' order.order_id %}"
+                                           class="view-btn">
+
+                                            <i class="fa-solid fa-eye"></i>
+                                            View Items
+
+                                        </a>
+                                    </td> {% endcomment %}
+                                    <td>
+                                        <a href="{% url 'order_bill' order.order_id %}"
+                                            class="bill-icon" title="Receive Bill">
+                                            <i class="fa-solid fa-receipt"></i>
+                                            View Bill
+                                        </a>
+                                    </td>
+
+                                    <!-- Cancel -->
+                                    <td>
+
+                                        <a href="{% url 'cancel_order' order.order_id %}"
+                                           class="cancel-btn"
+                                           onclick="return confirm('Are you sure you want to cancel and delete this order?');">
+
+                                            <i class="fa-solid fa-trash"></i>
+                                            Cancel
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <!-- Empty Orders -->
+                <div class="empty-orders">
+
+                    <div class="empty-icon">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>
+
+                    <h2>No Orders Yet</h2>
+
+                    <p>
+                        You haven't placed any orders yet.
+                        Start shopping for your medicines.
+                    </p>
+
+                    <a href="{% url 'home' %}" class="shop-btn">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        Start Shopping
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock content %}
